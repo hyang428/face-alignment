@@ -1,4 +1,4 @@
-function Data = loadsamples(imgpathlistfile, exc_setlabel)
+function Data = loadsamples(imgpathlist, exc_setlabel)
 %LOADSAMPLES Summary of this function goes here
 %   Function: load samples from dbname database
 %   Detailed explanation goes here
@@ -7,7 +7,7 @@ function Data = loadsamples(imgpathlistfile, exc_setlabel)
 %        exc_setlabel: excluded set label
 %   Output:
 %        Data: loaded data from the database
-imgpathlist = textread(imgpathlistfile, '%s', 'delimiter', '\n');
+%imgpathlist = textread(imgpathlistfile, '%s', 'delimiter', '\n');
 
 Data = cell(length(imgpathlist), 1);
 

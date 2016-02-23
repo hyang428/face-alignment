@@ -7,24 +7,28 @@
 global params;
 config_te;
 
+dbnames = {'ibug','lfpw/testset','helen/testset'};
+dataType ={'*.jpg', '*.png', '*.jpg'};    % the corresponding type for the dataset
+DataPath = '/media/yhy/Elements/FaceDataSet/';
+
 if size(dbnames) > 1 & sum(strcmp(dbnames, 'COFW')) > 0
     disp('Sorry, COFW cannnot be combined with others')
     return;
 end
 
 if sum(strcmp(dbnames, 'COFW')) > 0
-    load('..\initial_shape\InitialShape_29.mat');
+    load('./initial_shape/InitialShape_29.mat');
     params.meanshape        = S0;
 else
-    load('..\initial_shape\InitialShape_68.mat');
+    load('./initial_shape/InitialShape_68.mat');
     params.meanshape        = S0;
 end
 
 if params.isparallel
-    if isempty(gcp('nocreate')) %判断并行计算环境是否已然启动
-        parpool(4); %若尚未启动，则启动并行环境
+    if isempty(gcp('nocreate')) %
+        parpool(4); %
     else
-        disp('Already initialized'); %说明并行环境已经启动。
+        disp('Already initialized'); %
     end
 end
 
@@ -32,8 +36,14 @@ end
 Te_Data = [];
 for i = 1:length(dbnames)
     % load training samples (including training images, and groundtruth shapes)
-    imgpathlistfile = strcat('D:\Projects_Face_Detection\Datasets\', dbnames{i}, '\Path_Images.txt');
-    te_data = loadsamples(imgpathlistfile, 1);
+    %imgpathlistfile = strcat('D:\Projects_Face_Detection\Datasets\', dbnames{i}, '\Path_Images.txt');
+     filelist = dir([DataPath, dbnames{i}, '/', dataType{i}]);
+    for j =1:length(filelist)
+        imgpathlist{j} = [DataPath, dbnames{i}, '/',filelist(j).name];
+    end 
+    % imgpathlist
+    te_data = loadsamples(imgpathlist, 1);
+   % te_data = loadsamples(imgpathlistfile, 1);
     Te_Data = [Te_Data; te_data];
 end
 

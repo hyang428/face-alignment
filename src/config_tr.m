@@ -1,6 +1,6 @@
 global params;
 
-params.isparallel = true;
+params.isparallel = false;
 
 % initiliaze parameters for shape
 params.augnumber_shift  = 0;   % the number of initial shapes in augmenting training set by shifting

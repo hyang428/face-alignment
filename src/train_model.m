@@ -8,16 +8,20 @@ global params;
 global Tr_Data;
 config_tr;
 
+dbnames = {'afw','lfpw/trainset','helen/trainset'};
+dataType ={'*.jpg', '*.png', '*.jpg'};    % the corresponding type for the dataset
+DataPath = '/media/yhy/Elements/FaceDataSet/';
+
 if size(dbnames) > 1 & sum(strcmp(dbnames, 'COFW')) > 0
     disp('Sorry, COFW cannnot be combined with others')
     return;
 end
 
 if sum(strcmp(dbnames, 'COFW')) > 0
-    load('../initial_shape/InitialShape_29.mat');
+    load('./initial_shape/InitialShape_29.mat');
     params.meanshape        = S0;
 else
-    load('../initial_shape/InitialShape_68.mat');
+    load('./initial_shape/InitialShape_68.mat');
     params.meanshape        = S0;
 end
 
@@ -40,13 +44,19 @@ if params.isparallel
     %}
 end
 
+
 % load trainning data from hardware
 Tr_Data    = [];
 % Tr_Bboxes  = [];
 for i = 1:length(dbnames)
     % load training samples (including training images, and groundtruth shapes)
-    imgpathlistfile = strcat('..\datasets\', dbnames{i}, '\Path_Images.txt');
-    tr_data = loadsamples(imgpathlistfile, 2);
+   % imgpathlistfile = strcat(DataPath, dbnames{i}, '\Path_Images.txt');
+    filelist = dir([DataPath, dbnames{i}, '/', dataType{i}]);
+    for j =1:length(filelist)
+        imgpathlist{j} = [DataPath, dbnames{i}, '/',filelist(j).name];
+    end 
+    % imgpathlist
+    tr_data = loadsamples(imgpathlist, 2);
     Tr_Data = [Tr_Data; tr_data];
 end
 
