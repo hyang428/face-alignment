@@ -112,6 +112,7 @@ Data = Data(ind_valid == 1);
 
 end
 
+%% read the landmarks from the points files
 function shape = loadshape(path)
 % function: load shape from pts file
 file = fopen(path);
@@ -126,6 +127,11 @@ fclose(file);
 shape = shape{1};
 end
 
+%% scale the bbox, and make it a little bigger than the detected box
+%  why we need to scale it?
+%     cause the detected box is not 100% accurate, so, part of the face may
+%     be not included in the box, which will cause errors for the following
+%     procedures.
 function region = enlargingbbox(bbox, scale)
 
 region(1) = floor(bbox(1) - (scale - 1)/2*bbox(3));

@@ -8,6 +8,7 @@ global params;
 global Tr_Data;
 config_tr;
 
+% How to organize the training dataset.
 dbnames = {'afw','lfpw/trainset','helen/trainset'};
 dataType ={'*.jpg', '*.png', '*.jpg'};    % the corresponding type for the dataset
 DataPath = '/media/yhy/Elements/FaceDataSet/';
@@ -64,6 +65,8 @@ end
 Data = Tr_Data; % (1:10:end);
 Param = params;
 
+%% augmentation
+% flipping:  [1 2 3] --> [3 2 1]
 if Param.flipflag % if conduct flipping
     Data_flip = cell(size(Data, 1), 1);
     for i = 1:length(Data_flip)

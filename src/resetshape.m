@@ -10,6 +10,8 @@ function [shape_initial] = resetshape(bbox, shape_union)
 %       bbox: bounding box of face image
 
 % get the bounding box according to the ground truth shape
+% However, if you don't have the ground truth box, how to project the
+% mean-shape
 width_union = (max(shape_union(:, 1)) - min(shape_union(:, 1)));
 height_union = (max(shape_union(:, 2)) - min(shape_union(:, 2)));
 

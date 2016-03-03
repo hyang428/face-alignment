@@ -15,6 +15,7 @@ dbsize      = length(Te_Data);
 gtshapes = zeros([size(params.meanshape) dbsize*(params.augnumber)]);  % concatenate 2-D coordinates into a vector (N X (2*L))
 dist_pupils = zeros(dbsize*(params.augnumber), 1);
 
+%{
 for i = 1:dbsize*(params.augnumber)
     k = floor((i-1)/(params.augnumber)) + 1;
     s = mod(i-1, (params.augnumber)) + 1;    
@@ -32,6 +33,7 @@ for i = 1:dbsize*(params.augnumber)
     end
     
 end
+%}
 
 % Predict the location of lanmarks using current regression matrix
 deltashapes_bar = binaryfeatures*W;
@@ -81,12 +83,13 @@ for i = 1:dbsize*(params.augnumber)
     %}
 end
 
+%{
 error_per_image = compute_error(gtshapes, predshapes);
 
 MRSE = 100*mean(error_per_image);
 MRSE_display = sprintf('Mean Root Square Error for %d Test Samples: %f', (dbsize*(params.augnumber)), MRSE);
 disp(MRSE_display);
-
+%}
 end
 
 function [ error_per_image ] = compute_error( ground_truth_all, detected_points_all )

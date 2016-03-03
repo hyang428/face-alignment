@@ -14,10 +14,10 @@ params.augnumber        = (params.augnumber_shift + 1)*(params.augnumber_rotate 
 params.max_numfeats    = [1000 1000 1000 500 500 500 400 400];
 params.bagging_overlap = 0.4;
 params.max_raio_radius = [0.4 0.3 0.2 0.15 0.12 0.10 0.08 0.06 0.06 0.05];
-params.max_numtrees    = 5;
-params.max_depth       = 4;
+params.max_numtrees    = 10;
+params.max_depth       = 5;
 
 params.max_numthreshs  = 500;
 
 % initialize parameters for boosting gradient regression
-params.max_numstage    = 4;
+params.max_numstage    = 7;

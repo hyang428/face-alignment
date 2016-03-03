@@ -231,6 +231,7 @@ end
 
 end
 
+%% return the feature for the patches around the landmarks.
 function [binfeature, num_leafnodes] = lbf_fast(rf, feats, isleaf, threshs, cnodes, img_gray, bbox, shape, meanshape2tf, params, stage)
 
 %{
